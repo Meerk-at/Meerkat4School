@@ -1,6 +1,7 @@
 package com.meerkat.school
 
 
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -11,7 +12,7 @@ class GradeController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Grade.list(params), model: [gradeInstanceCount: Grade.count()]
+        respond Grade.list(params), model:[gradeInstanceCount: Grade.count()]
     }
 
     def show(Grade gradeInstance) {
@@ -30,11 +31,11 @@ class GradeController {
         }
 
         if (gradeInstance.hasErrors()) {
-            respond gradeInstance.errors, view: 'create'
+            respond gradeInstance.errors, view:'create'
             return
         }
 
-        gradeInstance.save flush: true
+        gradeInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -57,18 +58,18 @@ class GradeController {
         }
 
         if (gradeInstance.hasErrors()) {
-            respond gradeInstance.errors, view: 'edit'
+            respond gradeInstance.errors, view:'edit'
             return
         }
 
-        gradeInstance.save flush: true
+        gradeInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Grade.label', default: 'Grade'), gradeInstance.id])
                 redirect gradeInstance
             }
-            '*' { respond gradeInstance, [status: OK] }
+            '*'{ respond gradeInstance, [status: OK] }
         }
     }
 
@@ -80,14 +81,14 @@ class GradeController {
             return
         }
 
-        gradeInstance.delete flush: true
+        gradeInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Grade.label', default: 'Grade'), gradeInstance.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index", method:"GET"
             }
-            '*' { render status: NO_CONTENT }
+            '*'{ render status: NO_CONTENT }
         }
     }
 
@@ -97,7 +98,7 @@ class GradeController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'gradeInstance.label', default: 'Grade'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*' { render status: NOT_FOUND }
+            '*'{ render status: NOT_FOUND }
         }
     }
 }

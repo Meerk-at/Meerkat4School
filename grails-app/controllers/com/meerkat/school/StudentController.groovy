@@ -1,6 +1,7 @@
 package com.meerkat.school
 
 
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -11,7 +12,7 @@ class StudentController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Student.list(params), model: [studentInstanceCount: Student.count()]
+        respond Student.list(params), model:[studentInstanceCount: Student.count()]
     }
 
     def show(Student studentInstance) {
@@ -30,11 +31,11 @@ class StudentController {
         }
 
         if (studentInstance.hasErrors()) {
-            respond studentInstance.errors, view: 'create'
+            respond studentInstance.errors, view:'create'
             return
         }
 
-        studentInstance.save flush: true
+        studentInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -57,18 +58,18 @@ class StudentController {
         }
 
         if (studentInstance.hasErrors()) {
-            respond studentInstance.errors, view: 'edit'
+            respond studentInstance.errors, view:'edit'
             return
         }
 
-        studentInstance.save flush: true
+        studentInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Student.label', default: 'Student'), studentInstance.id])
                 redirect studentInstance
             }
-            '*' { respond studentInstance, [status: OK] }
+            '*'{ respond studentInstance, [status: OK] }
         }
     }
 
@@ -80,14 +81,14 @@ class StudentController {
             return
         }
 
-        studentInstance.delete flush: true
+        studentInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Student.label', default: 'Student'), studentInstance.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index", method:"GET"
             }
-            '*' { render status: NO_CONTENT }
+            '*'{ render status: NO_CONTENT }
         }
     }
 
@@ -97,7 +98,7 @@ class StudentController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'studentInstance.label', default: 'Student'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*' { render status: NOT_FOUND }
+            '*'{ render status: NOT_FOUND }
         }
     }
 }
