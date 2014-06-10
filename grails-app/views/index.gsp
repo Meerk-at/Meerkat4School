@@ -1,122 +1,78 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.ico">
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
+    <title>Sticky Footer Template for Bootstrap</title>
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-			#status li {
-				line-height: 1.3;
-			}
+    <!-- Custom styles for this template -->
+    <link href="css/mycss.css" rel="stylesheet">
 
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
+<body>
 
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
+<!-- Begin page content -->
+<div class="container-fluid">
+    <div class="page-header">
+        <h1 class="text-center">Meerk@ 4 School</h1>
+    </div>
+    <p class="lead text-center">Calculate the grades you need for its class in order to achieve the desired global grade.</p>
+</div>
+<form role="form">
+<div class="container">
+<table class="table table-hover table-condensed">
+    <thead>
+    <tr>
+        <th style="width: 15%">Δηλωμένο</th>
+        <th style="width: 60%">Μάθημα</th>
+        <th style="width: 25%">Βαθμός</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="vert-align">
+            <input type="checkbox" onclick="var input = document.getElementById('grade1'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}">
+        </td>
+        <td class="vert-align">Ηλεκτρική Οικονομία</td>
+        <td><input type="text" id='grade1' class="form-control" disabled placeholder="Text input"></td>
+    </tr>
+    <tr>
+        <td class="vert-align">
+            <input type="checkbox" onclick="var input = document.getElementById('grade2'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}">
+        </td>
+        <td class="vert-align">Ηλεκτρομαγνητικό Πεδίο Ι</td>
+        <td><input type="text" id='grade2' class="form-control" disabled placeholder="Text input"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</form>
+<div id="footer">
+    <div class="container">
+        <p class="text-muted">Meerk@ - Meerk@4School, a project for Electrical Engineers of AUTH.</p>
+    </div>
+</div>
 
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
 
-			#controller-list ul {
-				list-style-position: inside;
-			}
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
-
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
-
-				#page-body {
-					margin: 0 1em 1em;
-				}
-
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${GroovySystem.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
-
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
-	</body>
+</body>
 </html>
