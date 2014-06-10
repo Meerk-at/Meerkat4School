@@ -1,3 +1,4 @@
+<%@ page import="com.meerkat.school.Course" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,47 +33,53 @@
     </div>
     <p class="lead text-center">Calculate the grades you need for its class in order to achieve the desired global grade.</p>
 </div>
-<form role="form">
-<div class="container">
-<table class="table table-hover table-condensed">
-    <thead>
-    <tr>
-        <th style="width: 15%">Δηλωμένο</th>
-        <th style="width: 60%">Μάθημα</th>
-        <th style="width: 25%">Βαθμός</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td class="vert-align">
-            <input type="checkbox" onclick="var input = document.getElementById('grade1'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}">
-        </td>
-        <td class="vert-align">Ηλεκτρική Οικονομία</td>
-        <td><input type="text" id='grade1' class="form-control" disabled placeholder="Text input"></td>
-    </tr>
-    <tr>
-        <td class="vert-align">
-            <input type="checkbox" onclick="var input = document.getElementById('grade2'); if(this.checked){ input.disabled = false; input.focus();}else{input.disabled=true;}">
-        </td>
-        <td class="vert-align">Ηλεκτρομαγνητικό Πεδίο Ι</td>
-        <td><input type="text" id='grade2' class="form-control" disabled placeholder="Text input"></td>
-    </tr>
-    </tbody>
-</table>
-</div>
-</form>
-<div id="footer">
+<g:form controller="calculate" action="index" role="form">
     <div class="container">
-        <p class="text-muted">Meerk@ - Meerk@4School, a project for Electrical Engineers of AUTH.</p>
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th style="width: 15%">Δηλωμένο</th>
+                <th style="width: 60%">Μάθημα</th>
+                <th style="width: 25%">Βαθμός</th>
+            </tr>
+            </thead>
+            <tbody>
+            <g:each var="course" in="${new Course().list()}">
+            <tr>
+                <td class="vert-align">
+                    <input type="checkbox" id="${course.name}check" onclick="var input = document.getElementById('${course.name}');
+                    if (this.checked) {
+                        input.disabled = false;
+                        input.focus();
+                    } else {
+                        input.disabled = true;
+                    }">
+                </td>
+                <td class="vert-align">${course.name}</td>
+                <td><input type="text" id='${course.name}' class="form-control" disabled placeholder="Text input"></td>
+            </tr>
+            </g:each>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
+            Calculate grades for remaining courses
+        </button>
+
     </div>
-</div>
+    </g:form>
+    </body>
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Meerk@ - Meerk@4School, a project for Electrical Engineers of AUTH.</p>
+        </div>
+    </div>
 
 
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript
+        ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-</body>
-</html>
+    </body>
+    </html>
