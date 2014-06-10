@@ -45,41 +45,58 @@
             </thead>
             <tbody>
             <g:each var="course" in="${new Course().list()}">
-            <tr>
-                <td class="vert-align">
-                    <input type="checkbox" id="${course.name}check" onclick="var input = document.getElementById('${course.name}');
-                    if (this.checked) {
-                        input.disabled = false;
-                        input.focus();
-                    } else {
-                        input.disabled = true;
-                    }">
-                </td>
-                <td class="vert-align">${course.name}</td>
-                <td><input type="text" id='${course.name}' class="form-control" disabled placeholder="Text input"></td>
-            </tr>
+                <tr>
+                    <td class="vert-align">
+                        <input type="checkbox" id="check${course.id}" onclick="var input = document.getElementById('grade${course.id}');
+                        if (this.checked) {
+                            input.disabled = false;
+                            input.focus();
+                        } else {
+                            input.disabled = true;
+                        }">
+                    </td>
+                    <td class="vert-align">${course.name}</td>
+                    <td><input type="text" id='grade${course.id}' class="form-control" disabled placeholder="Βαθμός"></td>
+                </tr>
             </g:each>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="diplomatiki_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Διπλωματική</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" style="text-align: right" id="diplomatiki_grade"
+                           placeholder="Βαθμός">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="overal_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Συνολικός Βαθμός</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" style="text-align: right" id="overal_grade"
+                           placeholder="Βαθμός">
+                </div>
+            </div>
+        </div>
+        <button type="submit"  class="btn btn-primary btn-lg btn-block">
             Calculate grades for remaining courses
         </button>
 
     </div>
-    </g:form>
-    </body>
-    <div id="footer">
-        <div class="container">
-            <p class="text-muted">Meerk@ - Meerk@4School, a project for Electrical Engineers of AUTH.</p>
-        </div>
+</g:form>
+</body>
+<div id="footer">
+    <div class="container">
+        <p class="text-muted">Meerk@ - Meerk@4School, a project for Electrical Engineers of AUTH.</p>
     </div>
+</div>
 
 
-    <!-- Bootstrap core JavaScript
-        ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
-    </body>
-    </html>
+</body>
+</html>
