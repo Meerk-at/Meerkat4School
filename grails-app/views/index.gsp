@@ -22,6 +22,31 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+    function butCheckForm_onclick(){
+        var dipGrade = document.getElementById('diplomatiki_grade');
+        var overGrade = document.getElementById('overal_grade');
+        if (overGrade.value =="" || dipGrade.value ==""){
+            var submit = document.getElementById("my-submit-button");
+            submit.disabled = true;
+        } else{
+            var check = true;
+            <g:each var="course" in="${new Course().list()}">
+                if (!document.getElementById('check'+${course.id}).checked){
+                    check = false;
+                }
+            </g:each>
+            if (check){
+                var submit = document.getElementById("my-submit-button");
+                submit.disabled = false;
+            } else{
+                var submit = document.getElementById("my-submit-button");
+                submit.disabled = true;
+            }
+        }
+    }
+    window.onload = butCheckForm_onclick();
+    </script>
 </head>
 
 <body>
@@ -33,7 +58,7 @@
     </div>
     <p class="lead text-center">Calculate the grades you need for its class in order to achieve the desired global grade.</p>
 </div>
-<g:form controller="calculate" action="index" role="form">
+<g:uploadForm controller="calculate" action="index" role="form">
     <div class="container">
         <table class="table table-hover table-condensed">
             <thead>
@@ -47,7 +72,7 @@
             <g:each var="course" in="${new Course().list()}">
                 <tr>
                     <td class="vert-align">
-                        <input type="checkbox" id="check${course.id}" onclick="var input = document.getElementById('grade${course.id}');
+                        <input type="checkbox" id="check${course.id}" onchange="butCheckForm_onclick()" onclick="var input = document.getElementById('grade${course.id}');
                         if (this.checked) {
                             input.disabled = false;
                             input.focus();
@@ -56,7 +81,7 @@
                         }">
                     </td>
                     <td class="vert-align">${course.name}</td>
-                    <td><input type="text" id='grade${course.id}' class="form-control" disabled placeholder="Βαθμός"></td>
+                    <td><input type="text" name="grade${course.id}" id='grade${course.id}' class="form-control" disabled placeholder="Βαθμός"/></td>
                 </tr>
             </g:each>
             </tbody>
@@ -65,25 +90,28 @@
         <div class="form-horizontal">
             <div class="form-group">
                 <label for="diplomatiki_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Διπλωματική</label>
+
                 <div class="col-md-2">
-                    <input type="text" class="form-control" style="text-align: right" id="diplomatiki_grade"
+                    <input type="text" class="form-control" onchange="butCheckForm_onclick()" style="text-align: right" id="diplomatiki_grade"
                            placeholder="Βαθμός">
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="overal_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Συνολικός Βαθμός</label>
+
                 <div class="col-md-2">
-                    <input type="text" class="form-control" style="text-align: right" id="overal_grade"
+                    <input type="text" class="form-control" style="text-align: right" onchange="butCheckForm_onclick()" id="overal_grade"
                            placeholder="Βαθμός">
                 </div>
             </div>
         </div>
-        <button type="submit"  class="btn btn-primary btn-lg btn-block">
+        <button type="submit" disabled id="my-submit-button" class="btn btn-primary btn-lg btn-block">
             Calculate grades for remaining courses
         </button>
 
     </div>
-</g:form>
+</g:uploadForm>
 </body>
 <div id="footer">
     <div class="container">
