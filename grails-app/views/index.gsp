@@ -52,13 +52,13 @@
 <body>
 
 <!-- Begin page content -->
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top: 30px;padding-bottom: 30px">
     <div class="page-header">
         <h1 class="text-center">Meerk@ 4 School</h1>
     </div>
     <p class="lead text-center">Calculate the grades you need for its class in order to achieve the desired global grade.</p>
 </div>
-<g:uploadForm controller="calculate" action="index" role="form">
+<g:uploadForm controller="calculate" action="index" role="form" style="padding-top: 20px">
     <div class="container">
         <table class="table table-hover table-condensed">
             <thead>
