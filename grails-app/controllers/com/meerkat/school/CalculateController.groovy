@@ -12,13 +12,15 @@ class CalculateController {
         student.url=generator( (('A'..'Z')+('0'..'9')).join(), 9 )
         student.save(flush: true)
         Course.all.each {c->
-            String p='grade'+c.id
-            if(params.get(p)){
-               println 'in'
-               def g=new Grade()
-               g.course=c
-               g.student=student
-               g.final_grade=params.get(p).toInteger()
+            String p='check'+c.id
+            if(params.get(p)) {
+                println 'in'
+                def g = new Grade()
+                g.course = c
+                g.student = student
+                if (g.final_grade){
+                    g.final_grade = params.get(p).toInteger()
+                }
                 if(g.validate()){
                     g.save(flush: true)
                 }else{
@@ -29,8 +31,11 @@ class CalculateController {
 
             }
         }
+        redirect(action: 'user',id: student.url)
     }
-    def test(){
-
-    }
+def user(){
+def user=Student.findByUrl(params.id)
+    println user
+[user:user]
+}
 }

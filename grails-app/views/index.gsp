@@ -36,7 +36,7 @@
 </div>
 <g:uploadForm controller="calculate" action="index" role="form" style="padding-top: 20px">
     <div class="container">
-        <g:each in="${ (1..<13) }" var="cur_sem">
+        <g:each in="${ (1..<10) }" var="cur_sem">
         <div class = "row">
             <div class = "col-md-12 text-center">
                 <h3 style="font-style: italic">${cur_sem}ο Εξάμηνο</h3>
@@ -52,9 +52,9 @@
             </thead>
             <tbody>
             <g:each var="course" in="${new Course().list()}">
-                <g:if test="${course.id == cur_sem}">
+                <g:if test="${course.semester == cur_sem}">
                 <tr  >
-                    <input type="checkbox" style="display: none;" class="checkbox-inline" id="check${course.id}" onchange="butCheckForm_onclick()">
+                    <input type="checkbox" style="display: none;" name="check${course.id}" class="checkbox-inline" id="check${course.id}" onchange="butCheckForm_onclick()">
                     <td class="vert-align" id="row${course.id}">
                         <img style="width: 20px" class="center-block" src="images/delete.png" alt="Όχι" id="img${course.id}" />
                     </td>
