@@ -22,31 +22,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script>
-    function butCheckForm_onclick(){
-        var dipGrade = document.getElementById('diplomatiki_grade');
-        var overGrade = document.getElementById('overal_grade');
-        if (overGrade.value =="" || dipGrade.value ==""){
-            var submit = document.getElementById("my-submit-button");
-            submit.disabled = true;
-        } else{
-            var check = true;
-            <g:each var="course" in="${new Course().list()}">
-                if (!document.getElementById('check'+${course.id}).checked){
-                    check = false;
-                }
-            </g:each>
-            if (check){
-                var submit = document.getElementById("my-submit-button");
-                submit.disabled = false;
-            } else{
-                var submit = document.getElementById("my-submit-button");
-                submit.disabled = true;
-            }
-        }
-    }
-    window.onload = butCheckForm_onclick();
-    </script>
+
 </head>
 
 <body>
@@ -60,6 +36,12 @@
 </div>
 <g:uploadForm controller="calculate" action="index" role="form" style="padding-top: 20px">
     <div class="container">
+        <g:each in="${ (1..<10) }" var="cur_sem">
+        <div class = "row">
+            <div class = "col-md-12 text-center">
+                <h3 style="font-style: italic">${cur_sem}ο Εξάμηνο</h3>
+            </div>
+        </div>
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
@@ -70,6 +52,7 @@
             </thead>
             <tbody>
             <g:each var="course" in="${new Course().list()}">
+                <g:if test="${course.semester == cur_sem}">
                 <tr>
                     <td class="vert-align">
                         <input type="checkbox" id="check${course.id}" onchange="butCheckForm_onclick()" onclick="var input = document.getElementById('grade${course.id}');
@@ -83,9 +66,11 @@
                     <td class="vert-align">${course.name}</td>
                     <td><input type="text" name="grade${course.id}" id='grade${course.id}' class="form-control" disabled placeholder="Βαθμός"/></td>
                 </tr>
+                </g:if>
             </g:each>
             </tbody>
         </table>
+    </g:each>
 
         <div class="form-horizontal">
             <div class="form-group">
@@ -103,6 +88,17 @@
                 <div class="col-md-2">
                     <input type="text" class="form-control" style="text-align: right" onchange="butCheckForm_onclick()" id="overal_grade"
                            placeholder="Βαθμός">
+                </div>
+            </div>
+        </div>
+        <div id="error_div" class="container">
+            <div style="color: #FF0000; font-style: italic" class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h4 id="error_title">Για να υπολογίσετε τους βαθμούς πρέπει να ισχύουν τα παρακάτω:</h4>
+                    <ul>
+                        <li id="error_1">61 μαθήματα δηλωμένα</li>
+                        <li id="error_2">Επιθυμητός συνολικός βαθμός συμπληρωμένος</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -125,6 +121,50 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<script>
+    function butCheckForm_onclick(){
+        var overGrade = document.getElementById('overal_grade');
+        var error_list2 = document.getElementById('error_2');
+        var counter = 0;
+        <g:each var="course" in="${new Course().list()}">
+        if (document.getElementById('check'+${course.id}).checked){
+            counter = counter + 1;
+        }
+        </g:each>
+        if (overGrade==null){
+            error_list2.style.display='list-item'
+            var submit = document.getElementById("my-submit-button");
+            var error = document.getElementById('error_div');
+            var error_list1 = document.getElementById('error_1');
+            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει μόνο ".concat(counter);
+            error.style.display='block';
+            submit.disabled = true;
+        }else if (overGrade.value==""){
+            error_list2.style.display='list-item'
+            var submit = document.getElementById("my-submit-button");
+            var error = document.getElementById('error_div');
+            var error_list1 = document.getElementById('error_1');
+            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει μόνο ".concat(counter);
+            error.style.display='block';
+            submit.disabled = true;
+        } else{
+            error_list2.style.display='none'
+            if (counter == 61){
+                var submit = document.getElementById("my-submit-button");
+                var error = document.getElementById('error_div');
+                submit.disabled = false;
+                error.style.display='none';
+            } else{
+                var submit = document.getElementById("my-submit-button");
+                var error = document.getElementById('error_div');
+                var error_list1 = document.getElementById('error_1');
+                error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει μόνο ".concat(counter);
+                submit.disabled = true;
+                error.style.display='block';
+            }
+        }
+    }
+    window.onload = butCheckForm_onclick();
+</script>
 </body>
 </html>
