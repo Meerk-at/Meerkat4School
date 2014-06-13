@@ -97,10 +97,12 @@
                 </div>
             </div>
         </div>
+        <img src="${createLink(controller: 'simpleCaptcha', action: 'captcha')}"/>
+        <label for="captcha">Type the letters above in the box below:</label>
+        <g:textField name="captcha"/>
         <button type="submit" disabled id="my-submit-button" class="btn btn-primary btn-lg btn-block">
             Calculate grades for remaining courses
         </button>
-
     </div>
 </g:uploadForm>
 </body>
