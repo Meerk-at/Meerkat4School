@@ -36,7 +36,7 @@
 </div>
 <g:uploadForm controller="calculate" action="index" role="form" style="padding-top: 20px">
     <div class="container">
-        <g:each in="${ (1..<10) }" var="cur_sem">
+        <g:each in="${ (1..<13) }" var="cur_sem">
         <div class = "row">
             <div class = "col-md-12 text-center">
                 <h3 style="font-style: italic">${cur_sem}ο Εξάμηνο</h3>
@@ -45,25 +45,20 @@
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
-                <th style="width: 15%">Δηλωμένο</th>
-                <th style="width: 60%">Μάθημα</th>
-                <th style="width: 25%">Βαθμός</th>
+                <th style="width: 13%" class="text-center">Δηλωμένο</th>
+                <th style="width: 72%" class="text-center">Μάθημα</th>
+                <th style="width: 15%" class="text-center">Βαθμός</th>
             </tr>
             </thead>
             <tbody>
             <g:each var="course" in="${new Course().list()}">
-                <g:if test="${course.semester == cur_sem}">
-                <tr>
-                    <td class="vert-align">
-                        <input type="checkbox" id="check${course.id}" onchange="butCheckForm_onclick()" onclick="var input = document.getElementById('grade${course.id}');
-                        if (this.checked) {
-                            input.disabled = false;
-                            input.focus();
-                        } else {
-                            input.disabled = true;
-                        }">
+                <g:if test="${course.id == cur_sem}">
+                <tr  >
+                    <input type="checkbox" style="display: none;" class="checkbox-inline" id="check${course.id}" onchange="butCheckForm_onclick()">
+                    <td class="vert-align" id="row${course.id}">
+                        <img style="width: 20px" class="center-block" src="images/delete.png" alt="Όχι" id="img${course.id}" />
                     </td>
-                    <td class="vert-align">${course.name}</td>
+                    <td  class="vert-align">${course.name}</td>
                     <td><input type="text" name="grade${course.id}" id='grade${course.id}' class="form-control" disabled placeholder="Βαθμός"/></td>
                 </tr>
                 </g:if>
@@ -122,12 +117,44 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
+
+    function tableRowClick(){
+
+        <g:each var="course" in="${new Course().list()}">
+        var checkbox = document.getElementById('check${course.id}');
+        var image = document.getElementById('img${course.id}');
+        console.log(checkbox.checked);
+        if (checkbox.checked) {
+            image.src="http://localhost:8080/Meerkat4School/images/tick.png";
+        }
+        else {
+            image.src="http://localhost:8080/Meerkat4School/images/delete.png";
+        }
+            document.getElementById('row'+${course.id}).onclick = function () {
+                var checkbox = document.getElementById('check${course.id}');
+                var input = document.getElementById('grade${course.id}');
+                var image = document.getElementById('img${course.id}');
+                checkbox.checked = !checkbox.checked;
+                input.disabled = !input.disabled;
+                console.log(checkbox.checked);
+                if (checkbox.checked) {
+                    image.src="http://localhost:8080/Meerkat4School/images/tick.png";
+                }
+                else {
+                    image.src="http://localhost:8080/Meerkat4School/images/delete.png";
+                }
+                butCheckForm_onclick();
+            };
+        </g:each>
+    }
+
     function butCheckForm_onclick(){
         var overGrade = document.getElementById('overal_grade');
         var error_list2 = document.getElementById('error_2');
         var counter = 0;
+        console.log("mpika");
         <g:each var="course" in="${new Course().list()}">
-        if (document.getElementById('check'+${course.id}).checked){
+        if (document.getElementById('check${course.id}').checked){
             counter = counter + 1;
         }
         </g:each>
@@ -136,7 +163,7 @@
             var submit = document.getElementById("my-submit-button");
             var error = document.getElementById('error_div');
             var error_list1 = document.getElementById('error_1');
-            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει μόνο ".concat(counter);
+            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
             error.style.display='block';
             submit.disabled = true;
         }else if (overGrade.value==""){
@@ -144,12 +171,12 @@
             var submit = document.getElementById("my-submit-button");
             var error = document.getElementById('error_div');
             var error_list1 = document.getElementById('error_1');
-            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει μόνο ".concat(counter);
+            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
             error.style.display='block';
             submit.disabled = true;
         } else{
             error_list2.style.display='none'
-            if (counter == 61){
+            if (counter == 5){
                 var submit = document.getElementById("my-submit-button");
                 var error = document.getElementById('error_div');
                 submit.disabled = false;
@@ -158,13 +185,14 @@
                 var submit = document.getElementById("my-submit-button");
                 var error = document.getElementById('error_div');
                 var error_list1 = document.getElementById('error_1');
-                error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει μόνο ".concat(counter);
+                error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
                 submit.disabled = true;
                 error.style.display='block';
             }
         }
     }
     window.onload = butCheckForm_onclick();
+    window.onload = tableRowClick();
 </script>
 </body>
 </html>
