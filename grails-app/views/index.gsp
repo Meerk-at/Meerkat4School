@@ -81,7 +81,7 @@
                 <label for="overal_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Συνολικός Βαθμός</label>
 
                 <div class="col-md-2">
-                    <input type="text" class="form-control" style="text-align: right" onchange="butCheckForm_onclick()" id="overal_grade"
+                    <input type="text" class="form-control" style="text-align: right" onkeyup="butCheckForm_onclick()" id="overal_grade"
                            placeholder="Βαθμός">
                 </div>
             </div>
@@ -159,26 +159,37 @@
         }
         </g:each>
         if (overGrade==null){
-            error_list2.style.display='list-item'
+            error_list2.style.display='list-item';
             var submit = document.getElementById("my-submit-button");
             var error = document.getElementById('error_div');
             var error_list1 = document.getElementById('error_1');
-            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
-            error.style.display='block';
+            if (counter == 5) {
+                error_list1.style.display='none';
+            } else{
+                error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
+                error_list1.style.display='list-item';
+            }
             submit.disabled = true;
         }else if (overGrade.value==""){
-            error_list2.style.display='list-item'
+            error_list2.style.display='list-item';
             var submit = document.getElementById("my-submit-button");
             var error = document.getElementById('error_div');
             var error_list1 = document.getElementById('error_1');
-            error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
+            if (counter == 5) {
+                error_list1.style.display='none';
+            } else{
+                error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
+                error_list1.style.display='list-item';
+            }
             error.style.display='block';
             submit.disabled = true;
         } else{
-            error_list2.style.display='none'
+            error_list2.style.display='none';
             if (counter == 5){
                 var submit = document.getElementById("my-submit-button");
                 var error = document.getElementById('error_div');
+                var error_list1 = document.getElementById('error_1');
+                error_list1.style.display='none';
                 submit.disabled = false;
                 error.style.display='none';
             } else{
@@ -186,6 +197,7 @@
                 var error = document.getElementById('error_div');
                 var error_list1 = document.getElementById('error_1');
                 error_list1.innerHTML="61 μαθήματα δηλωμένα. Έχετε επιλέξει ".concat(counter);
+                error_list1.style.display='list-item';
                 submit.disabled = true;
                 error.style.display='block';
             }
