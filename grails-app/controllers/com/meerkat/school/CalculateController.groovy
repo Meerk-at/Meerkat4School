@@ -10,6 +10,10 @@ class CalculateController {
             }
         }
         student.url=generator( (('A'..'Z')+('0'..'9')).join(), 9 )
+        student.overall=params.overall_grade
+        if(params.diplwmatiki_grade){
+        student.diplwmatiki=params.diplwmatiki_grade
+        }
         student.save(flush: true)
         Course.all.each {c->
             String p='check'+c.id

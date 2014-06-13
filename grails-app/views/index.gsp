@@ -72,7 +72,7 @@
                 <label for="diplomatiki_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Διπλωματική</label>
 
                 <div class="col-md-2">
-                    <input type="text" class="form-control" onchange="butCheckForm_onclick()" style="text-align: right" id="diplomatiki_grade"
+                    <input type="text" class="form-control" name="diplwmatiki_grade" onchange="butCheckForm_onclick()" style="text-align: right" id="diplomatiki_grade"
                            placeholder="Βαθμός">
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <label for="overal_grade" class="col-md-2 col-md-offset-4 control-label" style="vertical-align: middle">Συνολικός Βαθμός</label>
 
                 <div class="col-md-2">
-                    <input type="text" class="form-control" style="text-align: right" onkeyup="butCheckForm_onclick()" id="overal_grade"
+                    <input type="text" class="form-control" name="overall_grade" style="text-align: right" onkeyup="butCheckForm_onclick()" id="overal_grade"
                            placeholder="Βαθμός">
                 </div>
             </div>
@@ -206,5 +206,4 @@
     window.onload = butCheckForm_onclick();
     window.onload = tableRowClick();
 </script>
-</body>
 </html>
