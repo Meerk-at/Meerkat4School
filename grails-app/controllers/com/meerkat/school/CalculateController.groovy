@@ -30,4 +30,7 @@ class CalculateController {
             }
         }
     }
+    def test(){
+
+    }
 }

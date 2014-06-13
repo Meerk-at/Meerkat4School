@@ -2,12 +2,14 @@ package com.meerkat.school
 
 class Course {
 String name;
-int ects;
+Integer ects;
+Integer semester;
     String toString(){
         return name
     }
     static constraints = {
         name(nullable: false,blank: false,unique: true)
         ects(nullable: true)
+        semester(nullable: true)
     }
 }
