@@ -25,14 +25,14 @@
 
 </head>
 
-<body>
+<body style="background-color: #D5E2D5">
 
 <!-- Begin page content -->
-<div class="container-fluid" style="padding-top: 30px;padding-bottom: 30px">
+<div class="container-fluid" style="padding-top: 30px;padding-bottom: 30px; background-color: #2C3E50;">
     <div class="page-header">
-        <h1 class="text-center">Meerk@ 4 School</h1>
+        <h1 class="text-center" style="color: #FFF">Meerk@ 4 School</h1>
     </div>
-    <p class="lead text-center">Calculate the grades you need for its class in order to achieve the desired global grade.</p>
+    <p class="lead text-center" style="color: #FFF">Calculate the grades you need for each class in order to achieve the desired global grade.</p>
 </div>
 <g:uploadForm controller="calculate" action="index" role="form" style="padding-top: 20px">
     <div class="container">
@@ -100,9 +100,10 @@
         <img src="${createLink(controller: 'simpleCaptcha', action: 'captcha')}"/>
         <label for="captcha">Type the letters above in the box below:</label>
         <g:textField name="captcha"/>
-        <button type="submit" disabled id="my-submit-button" class="btn btn-primary btn-lg btn-block">
+        <button type="submit" disabled id="my-submit-button" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 30px">
             Calculate grades for remaining courses
         </button>
+
     </div>
 </g:uploadForm>
 </body>
